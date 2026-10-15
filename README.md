@@ -2,9 +2,17 @@
 
 > **"Find tomorrow's favorite GitHub project today."**
 
+[![Live on Vercel](https://img.shields.io/badge/Vercel-Live%20Demo-black?logo=vercel&style=flat-square)](https://reporadar-chi.vercel.app)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?logo=github&style=flat-square)](https://github.com/Manidutt/reporadar)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue?logo=typescript&style=flat-square)](https://www.typescriptlang.org)
+[![Vite](https://img.shields.io/badge/Vite-6.4-646CFF?logo=vite&style=flat-square)](https://vitejs.dev)
+
+**Live Web App**: [https://reporadar-chi.vercel.app](https://reporadar-chi.vercel.app)  
+**GitHub Repository**: [https://github.com/Manidutt/reporadar](https://github.com/Manidutt/reporadar)
+
 RepoRadar is a responsive developer discovery dashboard designed to track trending GitHub repositories, monitor breakout viral momentum, and accurately calculate genuine growth velocity without fabricating repository metrics.
 
-Inspired by the polished design standards of **Linear**, **Vercel**, **Raycast**, and **GitHub**.
+Designed with an ultra-clean **Apple Human Interface Guidelines (HIG)** aesthetic (macOS/iOS frosted glass translucency, Apple segmented controls, SF-style typography, subtle borders, and Apple Blue `#0071E3` & Green `#34C759` accents).
 
 ---
 
