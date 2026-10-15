@@ -16,8 +16,8 @@ export const LanguageBadge: React.FC<LanguageBadgeProps> = ({
 }) => {
   if (!language) {
     return (
-      <span className={`inline-flex items-center text-xs text-neutral-400 font-mono ${className}`}>
-        <span className="w-2 h-2 rounded-full bg-neutral-600 mr-1.5 shrink-0" />
+      <span className={`inline-flex items-center text-xs text-[#86868B] ${className}`}>
+        <span className="w-2 h-2 rounded-full bg-[#86868B] mr-1.5 shrink-0" />
         Plain text
       </span>
     );
@@ -28,17 +28,17 @@ export const LanguageBadge: React.FC<LanguageBadgeProps> = ({
   return (
     <span
       onClick={onClick}
-      className={`inline-flex items-center text-xs font-mono font-medium text-neutral-300 transition-colors ${
-        onClick ? 'cursor-pointer hover:text-white' : ''
+      className={`inline-flex items-center text-xs font-medium text-[#1D1D1F] dark:text-[#F5F5F7] transition-colors ${
+        onClick ? 'cursor-pointer hover:text-[#0071E3] dark:hover:text-[#0A84FF]' : ''
       } ${className}`}
     >
       <span
-        className="w-2 h-2 rounded-full mr-1.5 shrink-0 shadow-sm"
+        className="w-2 h-2 rounded-full mr-1.5 shrink-0 shadow-xs"
         style={{ backgroundColor: color }}
       />
       <span>{language}</span>
       {count !== undefined && (
-        <span className="ml-1 px-1.5 py-0.2 text-[10px] bg-white/10 text-neutral-400 rounded-full">
+        <span className="ml-1 px-1.5 py-0.2 text-[10px] bg-black/[0.05] dark:bg-white/10 text-[#86868B] rounded-full">
           {count}
         </span>
       )}

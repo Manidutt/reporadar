@@ -22,12 +22,10 @@ export const ViralWatchView: React.FC<ViralWatchViewProps> = ({
   const [showMethodology, setShowMethodology] = useState(false);
   const [filterMode, setFilterMode] = useState<'all' | 'verified' | 'newcomers'>('all');
 
-  // Sort by Viral Score descending
   const sorted = [...repositories].sort(
     (a, b) => (b.viralScore || 0) - (a.viralScore || 0)
   );
 
-  // Filter based on selected mode
   const filtered = sorted.filter((repo) => {
     if (filterMode === 'verified') {
       return repo.observedGrowth?.measured && (repo.observedGrowth.starsGained || 0) > 0;
@@ -51,108 +49,104 @@ export const ViralWatchView: React.FC<ViralWatchViewProps> = ({
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
       {/* Header Banner */}
-      <div className="p-6 rounded-2xl bg-gradient-to-r from-[#171924] via-[#151722] to-[#12141A] border border-[#2A2E3D] relative overflow-hidden">
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="max-w-xl">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-500/15 border border-indigo-500/30 text-indigo-400 text-xs font-mono font-medium mb-3">
-              <Zap className="w-3.5 h-3.5" />
-              <span>Momentum & Velocity Engine</span>
-            </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-              Viral Watch Radar
-            </h2>
-            <p className="text-xs sm:text-sm text-neutral-400 mt-1 leading-relaxed">
-              Detecting breakout repositories using genuine snapshot star deltas, creation acceleration, and developer engagement ratios.
-            </p>
+      <div className="p-7 rounded-[26px] bg-white dark:bg-[#1C1C1E] border border-black/[0.04] dark:border-white/[0.06] shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-5">
+        <div className="max-w-xl">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0071E3]/10 dark:bg-[#0A84FF]/20 text-[#0071E3] dark:text-[#0A84FF] text-xs font-semibold mb-3">
+            <Zap className="w-3.5 h-3.5 fill-current" />
+            <span>Velocity & Momentum Engine</span>
           </div>
-
-          <div className="flex items-center gap-3 self-start md:self-auto">
-            <button
-              onClick={() => setShowMethodology(true)}
-              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#1D212E] hover:bg-[#252A3B] border border-[#2F3547] text-xs font-semibold text-neutral-200 hover:text-white transition-all shadow-sm"
-            >
-              <HelpCircle className="w-4 h-4 text-indigo-400" />
-              <span>Scoring Methodology</span>
-            </button>
-          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#1D1D1F] dark:text-[#F5F5F7] tracking-tight">
+            Viral Watch
+          </h2>
+          <p className="text-xs sm:text-sm text-[#86868B] mt-1.5 leading-relaxed">
+            Spotlighting breakout open-source projects using snapshot star velocity, creation freshness, and developer community branching.
+          </p>
         </div>
+
+        <button
+          onClick={() => setShowMethodology(true)}
+          className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-black/[0.04] dark:bg-white/[0.08] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] text-xs font-semibold text-[#1D1D1F] dark:text-[#F5F5F7] transition-all self-start md:self-auto shadow-xs"
+        >
+          <HelpCircle className="w-4 h-4 text-[#0071E3] dark:text-[#0A84FF]" />
+          <span>Methodology</span>
+        </button>
       </div>
 
       {/* Metrics Row */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-4 rounded-xl bg-[#12141A] border border-[#232733]">
-          <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider block mb-1">
+        <div className="p-5 rounded-2xl bg-white dark:bg-[#1C1C1E] border border-black/[0.04] dark:border-white/[0.06] shadow-sm">
+          <span className="text-xs font-semibold text-[#86868B] uppercase tracking-wider block mb-1">
             Top Momentum Score
           </span>
-          <div className="text-2xl font-bold font-mono text-indigo-400">
+          <div className="text-2xl sm:text-3xl font-bold font-mono text-[#0071E3] dark:text-[#0A84FF]">
             {topScorer ? `${topScorer.viralScore}/100` : '—'}
           </div>
-          <div className="text-xs text-neutral-400 mt-0.5 truncate">
+          <div className="text-xs text-[#86868B] mt-1 truncate">
             {topScorer?.name || 'No data'}
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#12141A] border border-[#232733]">
-          <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider block mb-1">
-            Verified Snapshot Deltas
+        <div className="p-5 rounded-2xl bg-white dark:bg-[#1C1C1E] border border-black/[0.04] dark:border-white/[0.06] shadow-sm">
+          <span className="text-xs font-semibold text-[#86868B] uppercase tracking-wider block mb-1">
+            Verified Deltas
           </span>
-          <div className="text-2xl font-bold font-mono text-emerald-400">
+          <div className="text-2xl sm:text-3xl font-bold font-mono text-[#34C759] dark:text-[#30D158]">
             {verifiedCount}
           </div>
-          <div className="text-xs text-neutral-400 mt-0.5">
+          <div className="text-xs text-[#86868B] mt-1">
             Repositories with 2+ snapshots
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#12141A] border border-[#232733]">
-          <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider block mb-1">
-            Breakout Newcomers (&lt;90d)
+        <div className="p-5 rounded-2xl bg-white dark:bg-[#1C1C1E] border border-black/[0.04] dark:border-white/[0.06] shadow-sm">
+          <span className="text-xs font-semibold text-[#86868B] uppercase tracking-wider block mb-1">
+            New Projects (&lt;90d)
           </span>
-          <div className="text-2xl font-bold font-mono text-amber-400">
+          <div className="text-2xl sm:text-3xl font-bold font-mono text-[#FF9500] dark:text-[#FF9F0A]">
             {newcomerCount}
           </div>
-          <div className="text-xs text-neutral-400 mt-0.5">
+          <div className="text-xs text-[#86868B] mt-1">
             Rapidly created modern projects
           </div>
         </div>
       </div>
 
-      {/* Filter Tabs */}
-      <div className="flex items-center justify-between gap-3 border-b border-[#232733] pb-3">
-        <div className="flex items-center gap-2">
+      {/* Segmented Filter Control */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2">
+        <div className="flex items-center p-1 rounded-full bg-black/[0.05] dark:bg-white/[0.08] border border-black/[0.02] dark:border-white/[0.04] select-none">
           <button
             onClick={() => setFilterMode('all')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+            className={`px-3.5 py-1.5 rounded-full text-xs transition-all font-medium ${
               filterMode === 'all'
-                ? 'bg-indigo-600 text-white font-semibold'
-                : 'text-neutral-400 hover:text-white bg-[#141720]'
+                ? 'bg-white dark:bg-[#2C2C2E] text-[#1D1D1F] dark:text-[#F5F5F7] shadow-sm font-semibold'
+                : 'text-[#6E6E73] dark:text-[#A1A1A6] hover:text-[#1D1D1F] dark:hover:text-white'
             }`}
           >
             All Breakouts ({sorted.length})
           </button>
           <button
             onClick={() => setFilterMode('verified')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+            className={`px-3.5 py-1.5 rounded-full text-xs transition-all font-medium ${
               filterMode === 'verified'
-                ? 'bg-indigo-600 text-white font-semibold'
-                : 'text-neutral-400 hover:text-white bg-[#141720]'
+                ? 'bg-white dark:bg-[#2C2C2E] text-[#1D1D1F] dark:text-[#F5F5F7] shadow-sm font-semibold'
+                : 'text-[#6E6E73] dark:text-[#A1A1A6] hover:text-[#1D1D1F] dark:hover:text-white'
             }`}
           >
             Verified Growth ({verifiedCount})
           </button>
           <button
             onClick={() => setFilterMode('newcomers')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+            className={`px-3.5 py-1.5 rounded-full text-xs transition-all font-medium ${
               filterMode === 'newcomers'
-                ? 'bg-indigo-600 text-white font-semibold'
-                : 'text-neutral-400 hover:text-white bg-[#141720]'
+                ? 'bg-white dark:bg-[#2C2C2E] text-[#1D1D1F] dark:text-[#F5F5F7] shadow-sm font-semibold'
+                : 'text-[#6E6E73] dark:text-[#A1A1A6] hover:text-[#1D1D1F] dark:hover:text-white'
             }`}
           >
-            New Projects (&lt;90d) ({newcomerCount})
+            New Projects ({newcomerCount})
           </button>
         </div>
 
-        <span className="text-xs font-mono text-neutral-400 hidden sm:inline">
+        <span className="text-xs text-[#86868B]">
           Ranked by composite viral momentum
         </span>
       </div>

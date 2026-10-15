@@ -10,7 +10,6 @@ import {
   Sun,
   Moon,
   RefreshCw,
-  ExternalLink,
   Download,
 } from 'lucide-react';
 import { GitHubRepository } from '../../types/github';
@@ -50,15 +49,11 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     }
   }, [isOpen]);
 
-  // Global Cmd+K / Ctrl+K listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         if (isOpen) onClose();
-        else {
-          // Open handled by parent or event
-        }
       }
       if (e.key === 'Escape' && isOpen) {
         onClose();
@@ -70,11 +65,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
 
   if (!isOpen) return null;
 
-  // Filter actions and repositories
   const navActions: { id: string; label: string; icon: React.ElementType; action: () => void; category: 'Navigation' | 'Actions' }[] = [
     {
       id: 'nav-discover',
-      label: 'Go to Discover',
+      label: 'Discover Projects',
       icon: Compass,
       category: 'Navigation',
       action: () => {
@@ -84,7 +78,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     },
     {
       id: 'nav-trending',
-      label: 'Go to Trending Today',
+      label: 'Trending Today',
       icon: Flame,
       category: 'Navigation',
       action: () => {
@@ -94,7 +88,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     },
     {
       id: 'nav-viral',
-      label: 'Go to Viral Watch',
+      label: 'Viral Watch Radar',
       icon: Zap,
       category: 'Navigation',
       action: () => {
@@ -104,7 +98,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     },
     {
       id: 'nav-languages',
-      label: 'Go to Explore Languages',
+      label: 'Explore by Language',
       icon: Code2,
       category: 'Navigation',
       action: () => {
@@ -114,7 +108,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     },
     {
       id: 'nav-bookmarks',
-      label: 'Go to Bookmarks',
+      label: 'View Bookmarks',
       icon: Bookmark,
       category: 'Navigation',
       action: () => {
@@ -124,7 +118,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     },
     {
       id: 'nav-settings',
-      label: 'Go to Settings',
+      label: 'Settings & Tokens',
       icon: Settings,
       category: 'Navigation',
       action: () => {
@@ -134,7 +128,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     },
     {
       id: 'act-theme',
-      label: `Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`,
+      label: `Switch to ${theme === 'dark' ? 'Apple Light' : 'Apple Dark'} Mode`,
       icon: theme === 'dark' ? Sun : Moon,
       category: 'Actions',
       action: () => {
@@ -200,23 +194,23 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-24 p-4">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/75 backdrop-blur-sm"
+        className="fixed inset-0 bg-black/35 backdrop-blur-md"
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* Palette Container */}
+      {/* Apple Spotlight Window */}
       <div
-        className="relative w-full max-w-xl bg-[#0F1117] border border-[#2A2E3D] rounded-2xl shadow-2xl overflow-hidden z-10 animate-in zoom-in-95 duration-100 flex flex-col max-h-[70vh]"
+        className="relative w-full max-w-xl bg-white/95 dark:bg-[#1C1C1E]/95 backdrop-blur-3xl border border-black/[0.08] dark:border-white/[0.1] rounded-[24px] shadow-2xl overflow-hidden z-10 animate-in zoom-in-95 duration-100 flex flex-col max-h-[70vh]"
         role="dialog"
         aria-modal="true"
       >
         {/* Search Input Bar */}
-        <div className="p-4 border-b border-[#222634] flex items-center gap-3">
-          <Search className="w-5 h-5 text-neutral-400 shrink-0" />
+        <div className="p-4 border-b border-black/[0.05] dark:border-white/[0.06] flex items-center gap-3">
+          <Search className="w-5 h-5 text-[#86868B] shrink-0" />
           <input
             ref={inputRef}
             type="text"
@@ -226,11 +220,11 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
               setSelectedIndex(0);
             }}
             onKeyDown={handleKeyDown}
-            placeholder="Type a command or search repositories..."
-            className="w-full bg-transparent text-sm text-white placeholder-neutral-500 focus:outline-none font-sans"
+            placeholder="Spotlight Search or jump to action..."
+            className="w-full bg-transparent text-sm text-[#1D1D1F] dark:text-[#F5F5F7] placeholder-[#86868B] focus:outline-none"
           />
-          <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded bg-neutral-800 text-[10px] font-mono text-neutral-400 border border-neutral-700">
-            ESC
+          <kbd className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full bg-black/[0.05] dark:bg-white/[0.08] text-[10px] font-mono text-[#86868B]">
+            esc
           </kbd>
         </div>
 
@@ -238,8 +232,8 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         <div className="overflow-y-auto p-2 space-y-1">
           {filteredActions.length > 0 && (
             <div>
-              <div className="px-3 py-1.5 text-[10px] font-mono uppercase tracking-wider text-neutral-500">
-                Commands
+              <div className="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-[#86868B]">
+                Actions & Navigation
               </div>
               {filteredActions.map((action, idx) => {
                 const Icon = action.icon;
@@ -249,17 +243,17 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                     key={action.id}
                     onClick={action.action}
                     onMouseEnter={() => setSelectedIndex(idx)}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all ${
+                    className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all ${
                       isSelected
-                        ? 'bg-indigo-600 text-white font-semibold'
-                        : 'text-neutral-300 hover:bg-[#181B24]'
+                        ? 'bg-[#0071E3] text-white font-semibold shadow-sm'
+                        : 'text-[#1D1D1F] dark:text-[#F5F5F7] hover:bg-black/[0.04] dark:hover:bg-white/[0.06]'
                     }`}
                   >
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-3">
                       <Icon className="w-4 h-4" />
                       <span>{action.label}</span>
                     </div>
-                    <span className="text-[10px] font-mono opacity-60">
+                    <span className="text-[10px] opacity-75">
                       {action.category}
                     </span>
                   </button>
@@ -270,8 +264,8 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
 
           {matchingRepos.length > 0 && (
             <div className="pt-2">
-              <div className="px-3 py-1.5 text-[10px] font-mono uppercase tracking-wider text-neutral-500">
-                Discovered Repositories
+              <div className="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-[#86868B]">
+                Matching Repositories
               </div>
               {matchingRepos.map((repo, idx) => {
                 const globalIdx = filteredActions.length + idx;
@@ -284,21 +278,21 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                       onClose();
                     }}
                     onMouseEnter={() => setSelectedIndex(globalIdx)}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all ${
+                    className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all ${
                       isSelected
-                        ? 'bg-indigo-600 text-white font-semibold'
-                        : 'text-neutral-300 hover:bg-[#181B24]'
+                        ? 'bg-[#0071E3] text-white font-semibold shadow-sm'
+                        : 'text-[#1D1D1F] dark:text-[#F5F5F7] hover:bg-black/[0.04] dark:hover:bg-white/[0.06]'
                     }`}
                   >
-                    <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="flex items-center gap-3 min-w-0">
                       <img
                         src={repo.owner.avatar_url}
                         alt={repo.owner.login}
-                        className="w-4 h-4 rounded-full shrink-0"
+                        className="w-5 h-5 rounded-md shrink-0 object-cover"
                       />
                       <span className="truncate">{repo.full_name}</span>
                     </div>
-                    <div className="flex items-center gap-2 shrink-0 font-mono text-[11px] opacity-80">
+                    <div className="flex items-center gap-2.5 shrink-0 text-[11px] opacity-80">
                       {repo.language && <span>{repo.language}</span>}
                       <span>★ {repo.stargazers_count.toLocaleString()}</span>
                     </div>
@@ -309,19 +303,19 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           )}
 
           {totalItems === 0 && (
-            <div className="p-8 text-center text-xs text-neutral-500">
+            <div className="p-8 text-center text-xs text-[#86868B]">
               No results found for "{query}".
             </div>
           )}
         </div>
 
         {/* Footer Shortcut Bar */}
-        <div className="p-2.5 border-t border-[#222634] bg-[#0A0B0E] flex items-center justify-between text-[11px] font-mono text-neutral-500 px-4">
+        <div className="p-3 border-t border-black/[0.05] dark:border-white/[0.06] bg-black/[0.02] dark:bg-white/[0.02] flex items-center justify-between text-[11px] text-[#86868B] px-4">
           <div className="flex items-center gap-3">
             <span>↑↓ Navigate</span>
             <span>↵ Select</span>
           </div>
-          <span>RepoRadar Quick Navigation</span>
+          <span>Spotlight Search</span>
         </div>
       </div>
     </div>

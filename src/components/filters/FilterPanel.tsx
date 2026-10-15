@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FilterState, SortOption } from '../../types/filters';
 import { POPULAR_LANGUAGES } from '../../utils/languages';
-import { Filter, X, RotateCcw, ChevronDown, SlidersHorizontal, Sparkles } from 'lucide-react';
+import { SlidersHorizontal, ChevronDown, RotateCcw, X } from 'lucide-react';
 
 interface FilterPanelProps {
   filters: FilterState;
@@ -45,45 +45,45 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
   ];
 
   return (
-    <div className="rounded-2xl bg-[#12141A] border border-[#232733] overflow-hidden transition-all">
+    <div className="rounded-2xl bg-white dark:bg-[#1C1C1E] border border-black/[0.04] dark:border-white/[0.06] shadow-sm overflow-hidden transition-all">
       {/* Header Bar */}
-      <div className="p-3.5 sm:px-5 flex flex-wrap items-center justify-between gap-3">
+      <div className="p-3 sm:px-5 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#181B24] border border-[#262936] text-xs font-medium text-neutral-200 hover:text-white transition-colors"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/[0.04] dark:bg-white/[0.08] text-xs font-medium text-[#1D1D1F] dark:text-[#F5F5F7] hover:bg-black/[0.07] dark:hover:bg-white/[0.12] transition-colors"
           >
-            <SlidersHorizontal className="w-3.5 h-3.5 text-indigo-400" />
+            <SlidersHorizontal className="w-3.5 h-3.5 text-[#0071E3] dark:text-[#0A84FF]" />
             <span>Filters</span>
             {activeFilterCount > 0 && (
-              <span className="px-1.5 py-0.2 rounded-full bg-indigo-600 text-white font-mono text-[10px]">
+              <span className="px-1.5 py-0.2 rounded-full bg-[#0071E3] dark:bg-[#0A84FF] text-white text-[10px] font-mono">
                 {activeFilterCount}
               </span>
             )}
             <ChevronDown
-              className={`w-3.5 h-3.5 text-neutral-400 transition-transform duration-200 ${
+              className={`w-3.5 h-3.5 text-[#86868B] transition-transform duration-200 ${
                 isOpen ? 'rotate-180' : ''
               }`}
             />
           </button>
 
           {/* Result Count Indicator */}
-          <div className="text-xs font-mono text-neutral-400">
-            Showing <span className="text-white font-semibold">{resultCount}</span> of{' '}
-            <span className="text-neutral-300">{totalAvailable}</span> repositories
+          <div className="text-xs text-[#86868B]">
+            Showing <span className="text-[#1D1D1F] dark:text-[#F5F5F7] font-semibold">{resultCount}</span> of{' '}
+            <span>{totalAvailable}</span> repositories
           </div>
         </div>
 
         {/* Quick Sorting Selector */}
         <div className="flex items-center gap-2 text-xs">
-          <span className="text-neutral-400 font-mono hidden sm:inline">Sort:</span>
+          <span className="text-[#86868B] hidden sm:inline">Sort:</span>
           <select
             value={filters.sortBy}
             onChange={(e) => onChange({ sortBy: e.target.value as SortOption })}
-            className="px-2.5 py-1.5 rounded-xl bg-[#181B24] border border-[#262936] text-xs text-neutral-200 focus:outline-none focus:border-indigo-500 font-sans cursor-pointer"
+            className="px-3 py-1.5 rounded-full bg-black/[0.04] dark:bg-white/[0.08] border border-black/[0.03] dark:border-white/[0.05] text-xs text-[#1D1D1F] dark:text-[#F5F5F7] focus:outline-none focus:ring-1 focus:ring-[#0071E3] cursor-pointer"
           >
             {sortOptions.map((opt) => (
-              <option key={opt.value} value={opt.value}>
+              <option key={opt.value} value={opt.value} className="bg-white dark:bg-[#1C1C1E]">
                 {opt.label}
               </option>
             ))}
@@ -92,11 +92,11 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
           {activeFilterCount > 0 && (
             <button
               onClick={onReset}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-[#1E2230] text-neutral-300 hover:text-white text-xs transition-colors"
+              className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-black/[0.04] dark:bg-white/[0.08] text-[#6E6E73] dark:text-[#A1A1A6] hover:text-[#1D1D1F] dark:hover:text-white text-xs transition-colors"
               title="Reset all filters"
             >
               <RotateCcw className="w-3 h-3" />
-              <span className="hidden sm:inline">Clear</span>
+              <span className="hidden sm:inline">Reset</span>
             </button>
           )}
         </div>
@@ -104,16 +104,16 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
 
       {/* Expandable Filter Body */}
       {isOpen && (
-        <div className="p-4 sm:p-5 border-t border-[#232733] bg-[#0E1015] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-in fade-in slide-in-from-top-1 duration-150">
+        <div className="p-5 border-t border-black/[0.04] dark:border-white/[0.06] bg-[#FBFBFC] dark:bg-[#161618] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-in fade-in duration-150">
           {/* 1. Language Filter */}
           <div>
-            <label className="block text-xs font-medium text-neutral-300 mb-1.5 font-mono">
-              Programming Language
+            <label className="block text-xs font-semibold text-[#1D1D1F] dark:text-[#F5F5F7] mb-1.5">
+              Programming Ecosystem
             </label>
             <select
               value={filters.language}
               onChange={(e) => onChange({ language: e.target.value })}
-              className="w-full px-3 py-2 rounded-xl bg-[#161821] border border-[#262936] text-xs text-white focus:outline-none focus:border-indigo-500 font-sans cursor-pointer"
+              className="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#242426] border border-black/[0.08] dark:border-white/[0.1] text-xs text-[#1D1D1F] dark:text-[#F5F5F7] focus:outline-none focus:border-[#0071E3] cursor-pointer"
             >
               <option value="all">All Languages</option>
               {POPULAR_LANGUAGES.map((l) => (
@@ -126,9 +126,9 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
 
           {/* 2. Minimum Stars */}
           <div>
-            <div className="flex items-center justify-between text-xs font-mono text-neutral-300 mb-1.5">
+            <div className="flex items-center justify-between text-xs font-medium text-[#1D1D1F] dark:text-[#F5F5F7] mb-1.5">
               <span>Min. Stars</span>
-              <span className="text-indigo-400 font-semibold">
+              <span className="text-[#0071E3] dark:text-[#0A84FF] font-semibold">
                 {filters.minStars > 0 ? `≥ ${filters.minStars.toLocaleString()}` : 'Any'}
               </span>
             </div>
@@ -137,10 +137,10 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
                 <button
                   key={preset.value}
                   onClick={() => onChange({ minStars: preset.value })}
-                  className={`px-2 py-1 rounded-lg text-[11px] font-mono transition-colors ${
+                  className={`px-2.5 py-1 rounded-full text-[11px] font-medium transition-colors ${
                     filters.minStars === preset.value
-                      ? 'bg-indigo-600 text-white font-medium'
-                      : 'bg-[#181B24] border border-[#262936] text-neutral-400 hover:text-white'
+                      ? 'bg-[#0071E3] dark:bg-[#0A84FF] text-white shadow-sm'
+                      : 'bg-white dark:bg-[#242426] border border-black/[0.06] dark:border-white/[0.08] text-[#6E6E73] dark:text-[#A1A1A6] hover:text-[#1D1D1F] dark:hover:text-white'
                   }`}
                 >
                   {preset.label}
@@ -151,21 +151,21 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
 
           {/* 3. Topic Tag */}
           <div>
-            <label className="block text-xs font-medium text-neutral-300 mb-1.5 font-mono">
-              Topic / Tag
+            <label className="block text-xs font-semibold text-[#1D1D1F] dark:text-[#F5F5F7] mb-1.5">
+              Topic Filter
             </label>
             <div className="relative">
               <input
                 type="text"
                 value={filters.topic}
                 onChange={(e) => onChange({ topic: e.target.value })}
-                placeholder="e.g. ai, cli, agent, rust"
-                className="w-full px-3 py-2 rounded-xl bg-[#161821] border border-[#262936] text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-indigo-500 font-sans"
+                placeholder="e.g. ai, cli, rust, agent"
+                className="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#242426] border border-black/[0.08] dark:border-white/[0.1] text-xs text-[#1D1D1F] dark:text-[#F5F5F7] placeholder-[#86868B] focus:outline-none focus:border-[#0071E3]"
               />
               {filters.topic && (
                 <button
                   onClick={() => onChange({ topic: '' })}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-neutral-400 hover:text-white"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-[#86868B] hover:text-[#1D1D1F] dark:hover:text-white"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -175,9 +175,9 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
 
           {/* 4. Minimum Observed Growth */}
           <div>
-            <div className="flex items-center justify-between text-xs font-mono text-neutral-300 mb-1.5">
+            <div className="flex items-center justify-between text-xs font-medium text-[#1D1D1F] dark:text-[#F5F5F7] mb-1.5">
               <span>Min. Observed Gain</span>
-              <span className="text-emerald-400 font-semibold">
+              <span className="text-[#34C759] dark:text-[#30D158] font-semibold">
                 {filters.minGrowth > 0 ? `≥ +${filters.minGrowth} stars` : 'Any'}
               </span>
             </div>
@@ -188,10 +188,10 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
               step="25"
               value={filters.minGrowth}
               onChange={(e) => onChange({ minGrowth: parseInt(e.target.value, 10) })}
-              className="w-full accent-emerald-500 cursor-pointer"
+              className="w-full accent-[#0071E3] dark:accent-[#0A84FF] cursor-pointer"
             />
-            <div className="flex justify-between text-[10px] font-mono text-neutral-500 mt-1">
-              <span>0 (Any)</span>
+            <div className="flex justify-between text-[10px] text-[#86868B] mt-1 font-mono">
+              <span>Any</span>
               <span>+250</span>
               <span>+500 stars</span>
             </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { POPULAR_LANGUAGES, getLanguageColor } from '../../utils/languages';
-import { Code2, ArrowRight, Layers, Sparkles } from 'lucide-react';
+import { Code2, ArrowRight, Layers } from 'lucide-react';
 import { GitHubRepository } from '../../types/github';
 
 interface LanguageExplorerViewProps {
@@ -14,7 +14,6 @@ export const LanguageExplorerView: React.FC<LanguageExplorerViewProps> = ({
   onSelectLanguage,
   repositories,
 }) => {
-  // Compute counts from current loaded dataset
   const languageStats: Record<string, { count: number; totalStars: number; topRepo?: GitHubRepository }> = {};
 
   repositories.forEach((repo) => {
@@ -37,17 +36,17 @@ export const LanguageExplorerView: React.FC<LanguageExplorerViewProps> = ({
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
       {/* Header */}
-      <div className="p-6 rounded-2xl bg-gradient-to-r from-[#171924] via-[#151722] to-[#12141A] border border-[#2A2E3D]">
+      <div className="p-7 rounded-[26px] bg-white dark:bg-[#1C1C1E] border border-black/[0.04] dark:border-white/[0.06] shadow-sm">
         <div className="max-w-2xl">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-500/15 border border-indigo-500/30 text-indigo-400 text-xs font-mono font-medium mb-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#AF52DE]/10 dark:bg-[#BF5AF2]/20 text-[#AF52DE] dark:text-[#BF5AF2] text-xs font-semibold mb-3">
             <Code2 className="w-3.5 h-3.5" />
-            <span>Ecosystem Hub</span>
+            <span>Developer Ecosystems</span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-            Explore by Technology
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#1D1D1F] dark:text-[#F5F5F7] tracking-tight">
+            Explore by Language
           </h2>
-          <p className="text-xs sm:text-sm text-neutral-400 mt-1 leading-relaxed">
-            Browse trending repositories segmented by language communities. Metrics reflect actual repositories discovered in the current time window.
+          <p className="text-xs sm:text-sm text-[#86868B] mt-1.5 leading-relaxed">
+            Discover trending projects categorized by language communities. Metrics reflect actual repositories discovered in the current time window.
           </p>
         </div>
       </div>
@@ -57,31 +56,31 @@ export const LanguageExplorerView: React.FC<LanguageExplorerViewProps> = ({
         onClick={() => onSelectLanguage('all')}
         className={`p-5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between ${
           currentLanguage.toLowerCase() === 'all'
-            ? 'bg-indigo-600/15 border-indigo-500/50 shadow-md'
-            : 'bg-[#12141A] border-[#232733] hover:border-[#383E52] hover:bg-[#151821]'
+            ? 'bg-[#0071E3]/10 dark:bg-[#0A84FF]/20 border-[#0071E3]/30 dark:border-[#0A84FF]/40 shadow-sm'
+            : 'bg-white dark:bg-[#1C1C1E] border-black/[0.04] dark:border-white/[0.06] hover:shadow-sm hover:border-black/[0.08]'
         }`}
       >
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white">
+        <div className="flex items-center gap-3.5">
+          <div className="w-10 h-10 rounded-2xl bg-black/[0.04] dark:bg-white/[0.08] flex items-center justify-center text-[#1D1D1F] dark:text-[#F5F5F7]">
             <Layers className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
+            <h3 className="text-base font-semibold text-[#1D1D1F] dark:text-[#F5F5F7] flex items-center gap-2">
               All Languages
               {currentLanguage.toLowerCase() === 'all' && (
-                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-indigo-500 text-white">
-                  Active Filter
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#0071E3] dark:bg-[#0A84FF] text-white">
+                  Active
                 </span>
               )}
             </h3>
-            <p className="text-xs text-neutral-400">
-              Show all trending repositories across every programming ecosystem
+            <p className="text-xs text-[#86868B]">
+              Show all trending repositories across every open-source ecosystem
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-2 text-xs font-mono font-medium text-neutral-300">
+        <div className="flex items-center gap-2 text-xs font-medium text-[#0071E3] dark:text-[#0A84FF]">
           <span>{repositories.length} repos</span>
-          <ArrowRight className="w-4 h-4 text-indigo-400" />
+          <ArrowRight className="w-4 h-4" />
         </div>
       </div>
 
@@ -99,38 +98,38 @@ export const LanguageExplorerView: React.FC<LanguageExplorerViewProps> = ({
               onClick={() => onSelectLanguage(lang.name)}
               className={`p-5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between h-48 group ${
                 isSelected
-                  ? 'bg-indigo-600/15 border-indigo-500/60 shadow-lg shadow-indigo-500/10'
-                  : 'bg-[#12141A] border-[#232733] hover:border-[#383E52] hover:bg-[#151821]'
+                  ? 'bg-[#0071E3]/10 dark:bg-[#0A84FF]/20 border-[#0071E3]/30 dark:border-[#0A84FF]/40 shadow-sm'
+                  : 'bg-white dark:bg-[#1C1C1E] border-black/[0.04] dark:border-white/[0.06] hover:shadow-md hover:border-[#0071E3]/25'
               }`}
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2.5">
                     <span
-                      className="w-3.5 h-3.5 rounded-full shadow-sm"
+                      className="w-3.5 h-3.5 rounded-full shadow-xs"
                       style={{ backgroundColor: lang.color }}
                     />
-                    <h3 className="text-base font-bold text-white group-hover:text-indigo-400 transition-colors">
+                    <h3 className="text-base font-semibold text-[#1D1D1F] dark:text-[#F5F5F7] group-hover:text-[#0071E3] dark:group-hover:text-[#0A84FF] transition-colors">
                       {lang.name}
                     </h3>
                   </div>
 
                   {isSelected && (
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-indigo-500 text-white">
+                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#0071E3] dark:bg-[#0A84FF] text-white">
                       Selected
                     </span>
                   )}
                 </div>
 
-                <div className="space-y-1 text-xs text-neutral-400 font-mono">
+                <div className="space-y-1 text-xs text-[#86868B]">
                   <div className="flex justify-between">
-                    <span>Active in result set:</span>
-                    <span className="font-semibold text-white">{count} repos</span>
+                    <span>Discovered:</span>
+                    <span className="font-semibold text-[#1D1D1F] dark:text-[#F5F5F7]">{count} repos</span>
                   </div>
                   {count > 0 && (
                     <div className="flex justify-between">
-                      <span>Stars represented:</span>
-                      <span className="text-amber-400">
+                      <span>Stars:</span>
+                      <span className="text-[#FF9500] font-semibold">
                         {totalStars >= 1000
                           ? `${(totalStars / 1000).toFixed(1)}k`
                           : totalStars.toLocaleString()}
@@ -140,16 +139,16 @@ export const LanguageExplorerView: React.FC<LanguageExplorerViewProps> = ({
                 </div>
 
                 {stats?.topRepo && (
-                  <div className="mt-2.5 p-2 rounded-lg bg-[#181B25] border border-[#252836] text-[11px] text-neutral-400 truncate">
-                    <span className="text-neutral-500 font-mono">Top: </span>
-                    <span className="text-neutral-200 font-medium">{stats.topRepo.name}</span>
+                  <div className="mt-3 p-2 rounded-xl bg-black/[0.03] dark:bg-white/[0.06] text-[11px] text-[#86868B] truncate">
+                    <span>Top: </span>
+                    <span className="text-[#1D1D1F] dark:text-[#F5F5F7] font-medium">{stats.topRepo.name}</span>
                   </div>
                 )}
               </div>
 
-              <div className="pt-3 border-t border-[#232733]/60 flex items-center justify-between text-xs text-neutral-400 font-medium">
-                <span className="text-[11px] font-mono">Filter by {lang.name}</span>
-                <ArrowRight className="w-3.5 h-3.5 text-neutral-500 group-hover:text-indigo-400 group-hover:translate-x-0.5 transition-all" />
+              <div className="pt-3 border-t border-black/[0.04] dark:border-white/[0.06] flex items-center justify-between text-xs text-[#86868B] font-medium">
+                <span>Filter by {lang.name}</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#86868B] group-hover:text-[#0071E3] dark:group-hover:text-[#0A84FF] group-hover:translate-x-0.5 transition-all" />
               </div>
             </div>
           );

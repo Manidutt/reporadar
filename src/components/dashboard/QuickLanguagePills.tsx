@@ -1,5 +1,5 @@
 import React from 'react';
-import { POPULAR_LANGUAGES, getLanguageColor } from '../../utils/languages';
+import { POPULAR_LANGUAGES } from '../../utils/languages';
 
 interface QuickLanguagePillsProps {
   selectedLanguage: string;
@@ -22,13 +22,13 @@ export const QuickLanguagePills: React.FC<QuickLanguagePillsProps> = ({
     >
       <button
         onClick={() => onSelectLanguage('all')}
-        className={`px-3 py-1.5 rounded-xl font-medium shrink-0 transition-all ${
+        className={`px-3.5 py-1.5 rounded-full text-xs font-medium shrink-0 transition-all ${
           selectedLanguage.toLowerCase() === 'all'
-            ? 'bg-white text-black font-semibold shadow-sm'
-            : 'bg-[#141720] border border-[#232733] text-neutral-400 hover:text-white hover:border-neutral-600'
+            ? 'bg-[#1D1D1F] dark:bg-[#F5F5F7] text-white dark:text-[#1D1D1F] shadow-sm font-semibold'
+            : 'bg-white dark:bg-[#1C1C1E] border border-black/[0.05] dark:border-white/[0.08] text-[#6E6E73] dark:text-[#A1A1A6] hover:text-[#1D1D1F] dark:hover:text-white shadow-sm'
         }`}
       >
-        All Languages
+        All Ecosystems
       </button>
 
       {languagesToShow.map((lang) => {
@@ -38,10 +38,10 @@ export const QuickLanguagePills: React.FC<QuickLanguagePillsProps> = ({
           <button
             key={lang.name}
             onClick={() => onSelectLanguage(lang.name)}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-medium shrink-0 transition-all ${
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium shrink-0 transition-all ${
               isSelected
-                ? 'bg-indigo-600 text-white font-semibold shadow-sm'
-                : 'bg-[#141720] border border-[#232733] text-neutral-300 hover:text-white hover:border-neutral-600'
+                ? 'bg-[#0071E3] dark:bg-[#0A84FF] text-white shadow-sm font-semibold'
+                : 'bg-white dark:bg-[#1C1C1E] border border-black/[0.05] dark:border-white/[0.08] text-[#6E6E73] dark:text-[#A1A1A6] hover:text-[#1D1D1F] dark:hover:text-white shadow-sm'
             }`}
           >
             <span
@@ -52,7 +52,9 @@ export const QuickLanguagePills: React.FC<QuickLanguagePillsProps> = ({
             {count !== undefined && count > 0 && (
               <span
                 className={`ml-1 px-1.5 py-0.2 rounded-full text-[10px] font-mono ${
-                  isSelected ? 'bg-indigo-700 text-white' : 'bg-neutral-800 text-neutral-400'
+                  isSelected
+                    ? 'bg-white/20 text-white'
+                    : 'bg-black/[0.05] dark:bg-white/10 text-[#86868B]'
                 }`}
               >
                 {count}

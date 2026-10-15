@@ -54,37 +54,37 @@ export const RepositoryListItem: React.FC<RepositoryListItemProps> = ({
   return (
     <div
       onClick={() => onSelect(repository)}
-      className="group flex items-center justify-between gap-3 p-3 sm:px-4 rounded-xl bg-[#12141A] border border-[#232733] hover:border-[#383E52] hover:bg-[#151821] transition-all cursor-pointer"
+      className="group flex items-center justify-between gap-3 p-3.5 sm:px-4 rounded-2xl bg-white dark:bg-[#1C1C1E] border border-black/[0.04] dark:border-white/[0.06] shadow-xs hover:shadow-sm hover:border-[#0071E3]/20 dark:hover:border-[#0A84FF]/25 hover:bg-neutral-50 dark:hover:bg-[#222224] transition-all cursor-pointer"
     >
       {/* Left: Rank, Avatar, Title & Description */}
       <div className="flex items-center gap-3 min-w-0 flex-1">
-        <span className="w-6 text-center text-xs font-mono text-neutral-500 font-semibold shrink-0">
-          #{index + 1}
+        <span className="w-6 text-center text-xs font-mono text-[#86868B] font-medium shrink-0">
+          {index + 1}
         </span>
 
         <img
           src={repository.owner.avatar_url}
           alt={repository.owner.login}
-          className="w-7 h-7 rounded-full border border-neutral-700/80 shrink-0 bg-neutral-800"
+          className="w-8 h-8 rounded-xl border border-black/[0.05] dark:border-white/[0.08] shrink-0 bg-neutral-100 dark:bg-neutral-800 object-cover"
           loading="lazy"
         />
 
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-semibold text-white group-hover:text-indigo-400 transition-colors truncate">
+            <span className="text-sm font-semibold text-[#1D1D1F] dark:text-[#F5F5F7] group-hover:text-[#0071E3] dark:group-hover:text-[#0A84FF] transition-colors truncate tracking-tight">
               {repository.full_name}
             </span>
             {repository.viralScore !== undefined && repository.viralScore > 0 && (
               <span
-                className="hidden md:inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded text-[10px] font-mono bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
+                className="hidden md:inline-flex items-center gap-0.5 px-2 py-0.2 rounded-full text-[10px] font-semibold bg-[#0071E3]/10 dark:bg-[#0A84FF]/20 text-[#0071E3] dark:text-[#0A84FF]"
                 title={`Viral Score: ${repository.viralScore}`}
               >
-                <Zap className="w-2.5 h-2.5" />
+                <Zap className="w-2.5 h-2.5 fill-current" />
                 {repository.viralScore}
               </span>
             )}
           </div>
-          <p className="text-xs text-neutral-400 truncate max-w-xl hidden sm:block">
+          <p className="text-xs text-[#86868B] truncate max-w-xl hidden sm:block">
             {repository.description || 'No description provided.'}
           </p>
         </div>
@@ -100,19 +100,19 @@ export const RepositoryListItem: React.FC<RepositoryListItemProps> = ({
           <GrowthBadge growth={repository.observedGrowth} compact />
         </div>
 
-        <div className="flex items-center gap-3 font-mono text-xs text-neutral-300">
-          <span className="flex items-center gap-1 w-16 justify-end" title={`${repository.stargazers_count.toLocaleString()} stars`}>
-            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400/20" />
+        <div className="flex items-center gap-3 font-mono text-xs text-[#1D1D1F] dark:text-[#F5F5F7]">
+          <span className="flex items-center gap-1 w-16 justify-end font-semibold" title={`${repository.stargazers_count.toLocaleString()} stars`}>
+            <Star className="w-3.5 h-3.5 text-[#FF9500] fill-[#FF9500]" />
             <span>{formatCount(repository.stargazers_count)}</span>
           </span>
 
-          <span className="hidden sm:flex items-center gap-1 w-14 justify-end text-neutral-400" title={`${repository.forks_count.toLocaleString()} forks`}>
-            <GitFork className="w-3 h-3 text-neutral-500" />
+          <span className="hidden sm:flex items-center gap-1 w-14 justify-end text-[#86868B]" title={`${repository.forks_count.toLocaleString()} forks`}>
+            <GitFork className="w-3 h-3" />
             <span>{formatCount(repository.forks_count)}</span>
           </span>
         </div>
 
-        <span className="text-[11px] font-mono text-neutral-500 w-16 text-right hidden xl:block">
+        <span className="text-[11px] text-[#86868B] w-16 text-right hidden xl:block font-sans">
           {formatRelativeTime(repository.pushed_at || repository.updated_at)}
         </span>
 
@@ -120,20 +120,20 @@ export const RepositoryListItem: React.FC<RepositoryListItemProps> = ({
         <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
           <button
             onClick={() => onToggleBookmark(repository)}
-            className={`p-1.5 rounded-lg transition-colors ${
+            className={`w-7 h-7 rounded-full flex items-center justify-center transition-all ${
               isBookmarked
-                ? 'text-amber-400 bg-amber-400/10'
-                : 'text-neutral-400 hover:text-white hover:bg-neutral-800'
+                ? 'bg-[#FF9500]/15 text-[#FF9500]'
+                : 'bg-black/[0.04] dark:bg-white/[0.06] text-[#86868B] hover:text-[#1D1D1F] dark:hover:text-white'
             }`}
             title={isBookmarked ? 'Remove bookmark' : 'Bookmark repository'}
             aria-label={isBookmarked ? 'Remove bookmark' : 'Bookmark repository'}
           >
-            <Bookmark className={`w-3.5 h-3.5 ${isBookmarked ? 'fill-amber-400' : ''}`} />
+            <Bookmark className={`w-3.5 h-3.5 ${isBookmarked ? 'fill-[#FF9500]' : ''}`} />
           </button>
 
           <button
             onClick={handleShare}
-            className="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors hidden sm:block"
+            className="w-7 h-7 rounded-full bg-black/[0.04] dark:bg-white/[0.06] flex items-center justify-center text-[#86868B] hover:text-[#1D1D1F] dark:hover:text-white transition-all hidden sm:flex"
             title="Share repository"
             aria-label="Share repository"
           >
@@ -144,7 +144,7 @@ export const RepositoryListItem: React.FC<RepositoryListItemProps> = ({
             href={repository.html_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
+            className="w-7 h-7 rounded-full bg-black/[0.04] dark:bg-white/[0.06] flex items-center justify-center text-[#86868B] hover:text-[#1D1D1F] dark:hover:text-white transition-all"
             title="Open on GitHub"
             aria-label="Open on GitHub"
           >

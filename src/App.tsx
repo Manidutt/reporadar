@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { ActiveTab, FilterState, TimePeriod, ViewMode } from './types/filters';
 import { GitHubRepository } from './types/github';
 import { Sidebar } from './components/layout/Sidebar';
@@ -22,7 +22,7 @@ import { CommandPalette } from './components/command/CommandPalette';
 import { ToastContainer } from './components/common/ToastContainer';
 import { useBookmarks } from './hooks/useBookmarks';
 import { useGitHubData } from './hooks/useGitHubData';
-import { AlertCircle, ShieldAlert, Sparkles, KeyRound, Zap } from 'lucide-react';
+import { ShieldAlert } from 'lucide-react';
 
 const INITIAL_FILTERS: FilterState = {
   searchQuery: '',
@@ -36,7 +36,6 @@ const INITIAL_FILTERS: FilterState = {
 };
 
 export function App() {
-  // Sync initial tab and filters from URL parameters if available
   const [activeTab, setActiveTab] = useState<ActiveTab>(() => {
     try {
       const params = new URLSearchParams(window.location.search);
@@ -81,13 +80,10 @@ export function App() {
   // GitHub Data hook
   const {
     repositories,
-    totalCount,
     isLoading,
     isRefreshing,
     isRateLimited,
-    rateLimitReset,
     lastRefreshed,
-    error,
     refresh,
     reEnrich,
   } = useGitHubData(filters);
@@ -159,7 +155,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#090A0F] text-neutral-200 flex flex-col font-sans selection:bg-indigo-500 selection:text-white antialiased">
+    <div className="min-h-screen bg-[#F5F5F7] dark:bg-[#000000] text-[#1D1D1F] dark:text-[#F5F5F7] flex flex-col font-sans selection:bg-[#0071E3] selection:text-white transition-colors duration-200 antialiased">
       <div className="flex flex-1 min-h-screen">
         {/* Desktop Sidebar Navigation */}
         <div className="hidden lg:block">
@@ -198,22 +194,22 @@ export function App() {
           <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
             {/* Rate limit warning banner if applicable */}
             {isRateLimited && (
-              <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-3 text-xs text-amber-200">
-                <ShieldAlert className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+              <div className="p-4 rounded-2xl bg-[#FF9500]/10 border border-[#FF9500]/25 flex items-start gap-3 text-xs text-[#1D1D1F] dark:text-[#F5F5F7]">
+                <ShieldAlert className="w-5 h-5 text-[#FF9500] shrink-0 mt-0.5" />
                 <div className="flex-1">
-                  <div className="font-semibold text-amber-300 mb-0.5 flex items-center gap-1.5">
+                  <div className="font-semibold text-[#FF9500] mb-0.5 flex items-center gap-1.5">
                     GitHub Search Rate Limit Active
                   </div>
-                  <p className="leading-relaxed">
+                  <p className="leading-relaxed text-[#6E6E73] dark:text-[#A1A1A6]">
                     Unauthenticated GitHub Search allows 10 queries per minute. Displaying verified baseline repositories with active growth tracking.
                     Add a free Personal Access Token in{' '}
                     <button
                       onClick={() => setActiveTab('settings')}
-                      className="underline font-semibold hover:text-white"
+                      className="underline font-semibold text-[#0071E3] dark:text-[#0A84FF]"
                     >
                       Settings
                     </button>{' '}
-                    to upgrade your quota to 5,000 requests/hour.
+                    to elevate your quota to 5,000 requests/hour.
                   </p>
                 </div>
               </div>
@@ -257,10 +253,10 @@ export function App() {
                 {/* Feed Header with View Mode Switch */}
                 <div className="flex items-center justify-between pt-2">
                   <div className="flex items-center gap-2">
-                    <h2 className="text-base sm:text-lg font-bold text-white tracking-tight">
+                    <h2 className="text-lg sm:text-xl font-bold tracking-tight text-[#1D1D1F] dark:text-[#F5F5F7]">
                       {activeTab === 'trending' ? 'Trending Today' : 'Discovered Repositories'}
                     </h2>
-                    <span className="text-xs font-mono text-neutral-400 px-2 py-0.5 rounded-full bg-[#141720] border border-[#232733]">
+                    <span className="text-xs font-mono text-[#86868B] px-2.5 py-0.5 rounded-full bg-white dark:bg-[#1C1C1E] border border-black/[0.04] dark:border-white/[0.06] shadow-xs">
                       {displayedRepositories.length}
                     </span>
                   </div>

@@ -9,7 +9,6 @@ import {
   Radar,
   Moon,
   Sun,
-  KeyRound,
   ShieldCheck,
 } from 'lucide-react';
 import { GitHubIcon } from '../common/GitHubIcon';
@@ -53,28 +52,41 @@ export const Sidebar: React.FC<SidebarProps> = ({
   ];
 
   return (
-    <aside className="w-64 shrink-0 bg-[#0F1117] border-r border-[#222634] flex flex-col justify-between h-screen sticky top-0 select-none z-20">
-      {/* Brand Header */}
+    <aside className="w-64 shrink-0 bg-[#FBFBFC]/90 dark:bg-[#161618]/90 backdrop-blur-2xl border-r border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between h-screen sticky top-0 select-none z-20 transition-colors">
       <div>
-        <div className="p-5 pb-4 flex items-center justify-between border-b border-[#222634]/60">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-400 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
-              <Radar className="w-5 h-5 animate-pulse" />
+        {/* macOS Traffic Lights & Brand */}
+        <div className="p-5 pb-3">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="w-3 h-3 rounded-full bg-[#FF5F57] border border-[#E0443E]/50 shadow-sm" />
+            <span className="w-3 h-3 rounded-full bg-[#FEBC2E] border border-[#D89E24]/50 shadow-sm" />
+            <span className="w-3 h-3 rounded-full bg-[#28C840] border border-[#1AAB29]/50 shadow-sm" />
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-2xl bg-[#0071E3] dark:bg-[#0A84FF] flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+              <Radar className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-bold text-base tracking-tight text-white font-sans">RepoRadar</span>
-                <span className="text-[10px] uppercase font-mono font-bold px-1.5 py-0.5 rounded bg-indigo-500/15 text-indigo-400 border border-indigo-500/30">
-                  PRO
+                <span className="font-semibold text-base tracking-tight text-[#1D1D1F] dark:text-[#F5F5F7]">
+                  RepoRadar
+                </span>
+                <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-[#0071E3]/10 dark:bg-[#0A84FF]/20 text-[#0071E3] dark:text-[#0A84FF]">
+                  Daily
                 </span>
               </div>
-              <p className="text-[11px] text-neutral-400 font-mono tracking-tight">Viral Repo Discovery</p>
+              <p className="text-[11px] text-[#86868B]">GitHub Discovery</p>
             </div>
           </div>
         </div>
 
-        {/* Navigation Links */}
-        <nav className="p-3 space-y-1" aria-label="Main Navigation">
+        {/* Section title */}
+        <div className="px-5 pt-3 pb-1 text-[11px] font-semibold text-[#86868B] uppercase tracking-wider">
+          Library
+        </div>
+
+        {/* Navigation Items */}
+        <nav className="px-3 space-y-0.5" aria-label="Main Navigation">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -82,26 +94,26 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <button
                 key={item.id}
                 onClick={() => onTabChange(item.id)}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all ${
                   isActive
-                    ? 'bg-indigo-600/15 text-indigo-300 font-semibold border border-indigo-500/30 shadow-sm'
-                    : 'text-neutral-400 hover:text-neutral-200 hover:bg-[#181B24]'
+                    ? 'bg-[#0071E3] text-white shadow-sm font-semibold'
+                    : 'text-[#6E6E73] dark:text-[#A1A1A6] hover:bg-black/[0.04] dark:hover:bg-white/[0.06] hover:text-[#1D1D1F] dark:hover:text-white'
                 }`}
               >
-                <div className="flex items-center gap-2.5">
+                <div className="flex items-center gap-3">
                   <Icon
                     className={`w-4 h-4 transition-colors ${
-                      isActive ? 'text-indigo-400' : 'text-neutral-400'
+                      isActive ? 'text-white' : 'text-[#86868B]'
                     }`}
                   />
                   <span>{item.label}</span>
                 </div>
                 {item.badge !== undefined && item.badge > 0 && (
                   <span
-                    className={`text-xs px-2 py-0.5 rounded-full font-mono font-medium ${
+                    className={`text-[11px] px-2 py-0.5 rounded-full font-mono ${
                       isActive
-                        ? 'bg-indigo-500 text-white'
-                        : 'bg-neutral-800 text-neutral-300'
+                        ? 'bg-white/20 text-white'
+                        : 'bg-black/[0.06] dark:bg-white/10 text-[#6E6E73] dark:text-[#A1A1A6]'
                     }`}
                   >
                     {item.badge}
@@ -113,51 +125,42 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </nav>
       </div>
 
-      {/* Footer Area: API Status, Theme Toggle & Version */}
-      <div className="p-4 border-t border-[#222634]/80 space-y-3">
-        {/* API Rate Limit Status Pill */}
+      {/* Footer Area: API Status & Theme Switcher */}
+      <div className="p-4 border-t border-black/[0.06] dark:border-white/[0.08] space-y-3">
+        {/* Apple Status Widget */}
         <div
           onClick={() => onTabChange('settings')}
-          className="p-2.5 rounded-xl bg-[#141720] border border-[#232733] hover:border-neutral-700 cursor-pointer transition-colors group"
-          title="Click to manage GitHub API credentials & rate limits in Settings"
+          className="p-3 rounded-2xl bg-white dark:bg-[#242426] border border-black/[0.04] dark:border-white/[0.06] shadow-sm hover:shadow-md cursor-pointer transition-all group"
+          title="Manage API settings"
         >
-          <div className="flex items-center justify-between text-xs mb-1">
-            <div className="flex items-center gap-1.5 text-neutral-300 font-medium">
-              <GitHubIcon className="w-3.5 h-3.5 text-neutral-400" />
+          <div className="flex items-center justify-between text-xs mb-1.5">
+            <div className="flex items-center gap-1.5 text-[#1D1D1F] dark:text-[#F5F5F7] font-medium">
+              <GitHubIcon className="w-3.5 h-3.5 text-[#86868B]" />
               <span>GitHub API</span>
             </div>
             {rateLimit.isAuthenticated ? (
-              <span className="flex items-center gap-1 text-[10px] text-emerald-400 font-mono">
+              <span className="flex items-center gap-1 text-[10px] text-[#34C759] font-medium">
                 <ShieldCheck className="w-3 h-3" />
                 Auth
               </span>
             ) : (
-              <span className="text-[10px] text-neutral-400 font-mono">Public</span>
+              <span className="text-[10px] text-[#86868B]">Public</span>
             )}
           </div>
-          <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400">
-            <span>Remaining:</span>
-            <span
-              className={`font-semibold ${
-                rateLimit.remaining <= 2
-                  ? 'text-rose-400'
-                  : rateLimit.remaining <= 5
-                  ? 'text-amber-400'
-                  : 'text-emerald-400'
-              }`}
-            >
+          <div className="flex items-center justify-between text-[11px] font-mono text-[#86868B]">
+            <span>Rate Quota</span>
+            <span className="font-semibold text-[#1D1D1F] dark:text-[#F5F5F7]">
               {rateLimit.remaining} / {rateLimit.limit}
             </span>
           </div>
-          {/* Progress bar */}
-          <div className="w-full h-1 bg-neutral-800 rounded-full mt-1.5 overflow-hidden">
+          <div className="w-full h-1 bg-black/[0.06] dark:bg-white/10 rounded-full mt-2 overflow-hidden">
             <div
               className={`h-full transition-all duration-300 ${
                 rateLimit.remaining <= 2
-                  ? 'bg-rose-500'
+                  ? 'bg-[#FF3B30]'
                   : rateLimit.remaining <= 5
-                  ? 'bg-amber-500'
-                  : 'bg-emerald-500'
+                  ? 'bg-[#FF9500]'
+                  : 'bg-[#34C759]'
               }`}
               style={{
                 width: `${Math.min(100, (rateLimit.remaining / Math.max(1, rateLimit.limit)) * 100)}%`,
@@ -166,26 +169,25 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
         </div>
 
-        {/* Theme Toggle & Version */}
-        <div className="flex items-center justify-between text-xs text-neutral-400 pt-1">
+        {/* Theme Segmented Switch */}
+        <div className="flex items-center justify-between text-xs text-[#86868B]">
           <button
             onClick={toggleTheme}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#181B24] border border-[#262936] hover:text-white transition-colors text-xs font-medium"
-            aria-label="Toggle theme"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-[#242426] border border-black/[0.04] dark:border-white/[0.06] text-[#1D1D1F] dark:text-[#F5F5F7] text-xs font-medium shadow-sm hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors"
           >
             {theme === 'dark' ? (
               <>
-                <Sun className="w-3.5 h-3.5 text-amber-400" />
-                <span>Light Mode</span>
+                <Sun className="w-3.5 h-3.5 text-[#FF9500]" />
+                <span>Light</span>
               </>
             ) : (
               <>
-                <Moon className="w-3.5 h-3.5 text-indigo-400" />
-                <span>Dark Mode</span>
+                <Moon className="w-3.5 h-3.5 text-[#0071E3]" />
+                <span>Dark</span>
               </>
             )}
           </button>
-          <span className="text-[11px] font-mono text-neutral-500">v1.2.0</span>
+          <span className="text-[11px] font-mono text-[#86868B]">v1.2</span>
         </div>
       </div>
     </aside>

@@ -10,16 +10,16 @@ interface ViewToggleProps {
 export const ViewToggle: React.FC<ViewToggleProps> = ({ viewMode, onChange }) => {
   return (
     <div
-      className="flex items-center p-1 rounded-xl bg-[#141720] border border-[#232733] shrink-0"
+      className="flex items-center p-1 rounded-full bg-black/[0.05] dark:bg-white/[0.08] border border-black/[0.02] dark:border-white/[0.04] shrink-0 select-none"
       role="group"
       aria-label="View layout toggle"
     >
       <button
         onClick={() => onChange('grid')}
-        className={`p-1.5 rounded-lg transition-colors ${
+        className={`p-1.5 rounded-full transition-all ${
           viewMode === 'grid'
-            ? 'bg-indigo-600 text-white shadow-sm'
-            : 'text-neutral-400 hover:text-white'
+            ? 'bg-white dark:bg-[#2C2C2E] text-[#1D1D1F] dark:text-[#F5F5F7] shadow-sm'
+            : 'text-[#86868B] hover:text-[#1D1D1F] dark:hover:text-white'
         }`}
         title="Grid view"
         aria-label="Grid view"
@@ -28,13 +28,13 @@ export const ViewToggle: React.FC<ViewToggleProps> = ({ viewMode, onChange }) =>
       </button>
       <button
         onClick={() => onChange('table')}
-        className={`p-1.5 rounded-lg transition-colors ${
+        className={`p-1.5 rounded-full transition-all ${
           viewMode === 'table'
-            ? 'bg-indigo-600 text-white shadow-sm'
-            : 'text-neutral-400 hover:text-white'
+            ? 'bg-white dark:bg-[#2C2C2E] text-[#1D1D1F] dark:text-[#F5F5F7] shadow-sm'
+            : 'text-[#86868B] hover:text-[#1D1D1F] dark:hover:text-white'
         }`}
-        title="Compact list view"
-        aria-label="Compact list view"
+        title="List view"
+        aria-label="List view"
       >
         <List className="w-3.5 h-3.5" />
       </button>

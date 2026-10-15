@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-type Theme = 'dark' | 'light';
+type Theme = 'light' | 'dark';
 
 interface ThemeContextType {
   theme: Theme;
@@ -10,16 +10,17 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-const THEME_STORAGE_KEY = 'reporadar_theme_v1';
+const THEME_STORAGE_KEY = 'reporadar_apple_theme_v2';
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<Theme>(() => {
     try {
       const stored = localStorage.getItem(THEME_STORAGE_KEY);
       if (stored === 'dark' || stored === 'light') return stored;
-      return 'dark'; // Default dark mode as required by prompt
+      // Default to clean Apple Light
+      return 'light';
     } catch {
-      return 'dark';
+      return 'light';
     }
   });
 
@@ -28,11 +29,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (theme === 'dark') {
       root.classList.add('dark');
       root.classList.remove('light');
-      root.style.colorScheme = 'dark';
     } else {
       root.classList.add('light');
       root.classList.remove('dark');
-      root.style.colorScheme = 'light';
     }
     try {
       localStorage.setItem(THEME_STORAGE_KEY, theme);

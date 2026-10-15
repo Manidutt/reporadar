@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, RefreshCw, Calendar, Menu } from 'lucide-react';
+import { Search, RefreshCw, Menu, Sparkles } from 'lucide-react';
 import { TimePeriod } from '../../types/filters';
 
 interface HeaderProps {
@@ -25,7 +25,6 @@ export const Header: React.FC<HeaderProps> = ({
   onRefresh,
   onToggleMobileNav,
 }) => {
-  // Compute time-appropriate greeting
   const getGreeting = () => {
     const hour = new Date().getHours();
     if (hour < 12) return 'Good morning, developer.';
@@ -33,99 +32,90 @@ export const Header: React.FC<HeaderProps> = ({
     return 'Good evening, developer.';
   };
 
-  // Format current date
   const todayFormatted = new Intl.DateTimeFormat('en-US', {
-    weekday: 'short',
+    weekday: 'long',
     month: 'short',
     day: 'numeric',
-    year: 'numeric',
   }).format(new Date());
 
-  // Format last refreshed time
   const formatRefreshedTime = (timestamp: number) => {
-    if (!timestamp) return 'Never refreshed';
-    const date = new Date(timestamp);
-    const now = Date.now();
-    const diffSec = Math.floor((now - timestamp) / 1000);
-
+    if (!timestamp) return 'Never';
+    const diffSec = Math.floor((Date.now() - timestamp) / 1000);
     if (diffSec < 45) return 'Just now';
     if (diffSec < 3600) return `${Math.floor(diffSec / 60)}m ago`;
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
-  const periodOptions: { id: TimePeriod; label: string; desc: string }[] = [
-    { id: 'today', label: 'Today', desc: 'Active in 24-48h' },
-    { id: 'week', label: 'This Week', desc: 'Last 7 days' },
-    { id: 'month', label: 'This Month', desc: 'Last 30 days' },
+  const periodOptions: { id: TimePeriod; label: string }[] = [
+    { id: 'today', label: 'Today' },
+    { id: 'week', label: 'This Week' },
+    { id: 'month', label: 'This Month' },
   ];
 
   return (
-    <header className="border-b border-[#222634] bg-[#0A0B0E]/80 backdrop-blur-md sticky top-0 z-10 px-4 sm:px-6 lg:px-8 py-4 transition-colors">
+    <header className="border-b border-black/[0.05] dark:border-white/[0.06] bg-[#F5F5F7]/85 dark:bg-[#000000]/85 backdrop-blur-2xl sticky top-0 z-10 px-4 sm:px-6 lg:px-8 py-4 transition-colors">
       <div className="max-w-7xl mx-auto flex flex-col gap-4">
-        {/* Top Row: Greeting, Mobile Trigger, Date & Refresh */}
+        {/* Top Row: Date, Title & Actions */}
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <button
               onClick={onToggleMobileNav}
-              className="lg:hidden p-2 rounded-xl bg-[#141720] border border-[#232733] text-neutral-300 hover:text-white"
-              aria-label="Open mobile navigation"
+              className="lg:hidden p-2 rounded-full bg-white dark:bg-[#1C1C1E] border border-black/[0.06] dark:border-white/[0.08] shadow-sm text-[#1D1D1F] dark:text-[#F5F5F7]"
+              aria-label="Open menu"
             >
-              <Menu className="w-5 h-5" />
+              <Menu className="w-4 h-4" />
             </button>
 
             <div>
-              <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-[#86868B]">
+                {todayFormatted}
+              </div>
+              <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-[#1D1D1F] dark:text-[#F5F5F7]">
                 {getGreeting()}
               </h1>
-              <p className="text-xs sm:text-sm text-neutral-400">
+              <p className="text-xs sm:text-[13px] text-[#86868B]">
                 Your daily pulse on the open-source universe.
               </p>
             </div>
           </div>
 
-          {/* Date, Refresh & Status */}
-          <div className="flex items-center gap-3 self-end sm:self-auto">
-            <div className="hidden sm:flex items-center gap-1.5 text-xs text-neutral-400 font-mono px-3 py-1.5 rounded-xl bg-[#12141A] border border-[#232733]">
-              <Calendar className="w-3.5 h-3.5 text-indigo-400" />
-              <span>{todayFormatted}</span>
-            </div>
+          {/* Right Status & Refresh */}
+          <div className="flex items-center gap-2 self-end sm:self-auto">
+            <span className="text-[11px] text-[#86868B] font-mono hidden md:inline">
+              Updated {formatRefreshedTime(lastRefreshed)}
+            </span>
 
-            <div className="flex items-center gap-2">
-              <span className="text-[11px] text-neutral-400 font-mono hidden md:inline">
-                Refreshed {formatRefreshedTime(lastRefreshed)}
-              </span>
-              <button
-                onClick={onRefresh}
-                disabled={isRefreshing}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium text-neutral-200 bg-[#151821] hover:bg-[#1E2230] border border-[#232733] transition-all hover:border-neutral-600 disabled:opacity-50"
-                title="Fetch latest repository updates"
-              >
-                <RefreshCw
-                  className={`w-3.5 h-3.5 text-indigo-400 ${
-                    isRefreshing ? 'animate-spin' : ''
-                  }`}
-                />
-                <span className="hidden sm:inline">Refresh</span>
-              </button>
-            </div>
+            <button
+              onClick={onRefresh}
+              disabled={isRefreshing}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white dark:bg-[#1C1C1E] border border-black/[0.06] dark:border-white/[0.08] shadow-sm hover:shadow text-xs font-medium text-[#1D1D1F] dark:text-[#F5F5F7] transition-all disabled:opacity-50"
+              title="Refresh repository feed"
+            >
+              <RefreshCw
+                className={`w-3.5 h-3.5 text-[#0071E3] dark:text-[#0A84FF] ${
+                  isRefreshing ? 'animate-spin' : ''
+                }`}
+              />
+              <span className="hidden sm:inline">Refresh</span>
+            </button>
           </div>
         </div>
 
-        {/* Bottom Row: Search & Period Selector */}
+        {/* Bottom Row: Apple Search Pill & Segmented Control */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-1">
-          {/* Search bar with Cmd+K hint */}
-          <div className="relative flex-1 max-w-lg">
-            <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          {/* Apple Search Bar */}
+          <div className="relative flex-1 max-w-md">
+            <Search className="w-4 h-4 text-[#86868B] absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
-              placeholder="Search repository, owner, description, or topic..."
-              className="w-full pl-10 pr-20 py-2 rounded-xl bg-[#12141A] border border-[#232733] text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all font-sans"
+              placeholder="Search repositories, authors, or topics..."
+              className="w-full pl-9 pr-16 py-2 rounded-full bg-white dark:bg-[#1C1C1E] border border-black/[0.06] dark:border-white/[0.08] text-xs sm:text-sm text-[#1D1D1F] dark:text-[#F5F5F7] placeholder-[#86868B] focus:outline-none focus:ring-2 focus:ring-[#0071E3]/30 shadow-sm transition-all"
             />
             <button
               onClick={onOpenCommandPalette}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-[#1B1E29] border border-neutral-700/80 text-[11px] font-mono text-neutral-400 hover:text-white transition-colors"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-black/[0.04] dark:bg-white/10 text-[10px] font-mono text-[#86868B] hover:text-[#1D1D1F] dark:hover:text-white transition-colors"
               title="Open command palette"
             >
               <span>⌘</span>
@@ -133,9 +123,9 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           </div>
 
-          {/* Period Selector Tabs: Today, This Week, This Month */}
+          {/* Apple Segmented Control: Today, This Week, This Month */}
           <div
-            className="flex items-center p-1 rounded-xl bg-[#12141A] border border-[#232733] shrink-0 self-start sm:self-auto"
+            className="flex items-center p-1 rounded-full bg-black/[0.05] dark:bg-white/[0.08] border border-black/[0.02] dark:border-white/[0.04] shrink-0 self-start sm:self-auto select-none"
             role="tablist"
             aria-label="Time discovery window"
           >
@@ -147,12 +137,11 @@ export const Header: React.FC<HeaderProps> = ({
                   onClick={() => onPeriodChange(opt.id)}
                   role="tab"
                   aria-selected={isSelected}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                  className={`px-3.5 py-1.5 rounded-full text-xs transition-all font-medium ${
                     isSelected
-                      ? 'bg-indigo-600 text-white font-semibold shadow-sm shadow-indigo-600/30'
-                      : 'text-neutral-400 hover:text-neutral-200'
+                      ? 'bg-white dark:bg-[#2C2C2E] text-[#1D1D1F] dark:text-[#F5F5F7] shadow-sm font-semibold'
+                      : 'text-[#6E6E73] dark:text-[#A1A1A6] hover:text-[#1D1D1F] dark:hover:text-white'
                   }`}
-                  title={opt.desc}
                 >
                   {opt.label}
                 </button>
