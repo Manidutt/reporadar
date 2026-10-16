@@ -74,13 +74,28 @@ export const Header: React.FC<HeaderProps> = ({
                 {getGreeting()}
               </h1>
               <p className="text-xs sm:text-[13px] text-[#86868B]">
-                Your daily pulse on the open-source universe.
+                Your daily pulse on the open-source universe.{' '}
+                <span className="hidden sm:inline text-[#86868B]/40">•</span>{' '}
+                <span className="hidden sm:inline text-[#6E6E73] dark:text-[#A1A1A6]">
+                  Ideated by <strong className="text-[#1D1D1F] dark:text-[#F5F5F7] font-semibold">Manender</strong>
+                </span>
               </p>
             </div>
           </div>
 
-          {/* Right Status & Refresh */}
-          <div className="flex items-center gap-2 self-end sm:self-auto">
+          {/* Right Status, Ideation Badge & Refresh */}
+          <div className="flex items-center gap-2.5 self-end sm:self-auto">
+            <a
+              href="https://github.com/Manidutt/reporadar"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0071E3]/10 dark:bg-[#0A84FF]/15 text-[#0071E3] dark:text-[#0A84FF] text-xs font-medium border border-[#0071E3]/20 hover:bg-[#0071E3]/20 transition-all"
+              title="RepoRadar — Ideated by Manender"
+            >
+              <Sparkles className="w-3 h-3" />
+              <span>Ideated by <strong>Manender</strong></span>
+            </a>
+
             <span className="text-[11px] text-[#86868B] font-mono hidden md:inline">
               Updated {formatRefreshedTime(lastRefreshed)}
             </span>

@@ -314,8 +314,13 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           <div className="flex items-center gap-3">
             <span>↑↓ Navigate</span>
             <span>↵ Select</span>
+            <span>Esc Close</span>
           </div>
-          <span>Spotlight Search</span>
+          <div className="flex items-center gap-2">
+            <span className="hidden sm:inline">Spotlight Search</span>
+            <span className="text-[#86868B]/40 hidden sm:inline">•</span>
+            <span className="text-[#1D1D1F] dark:text-[#F5F5F7] font-medium">Ideated by Manender</span>
+          </div>
         </div>
       </div>
     </div>

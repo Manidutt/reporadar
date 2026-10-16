@@ -1,14 +1,17 @@
 # RepoRadar — Daily GitHub Viral Repo Check
 
-> **"Find tomorrow's favorite GitHub project today."**
+> **"Find tomorrow's favorite GitHub project today."**  
+> *Ideated & Designed by Manender*
 
 [![Live on Vercel](https://img.shields.io/badge/Vercel-Live%20Demo-black?logo=vercel&style=flat-square)](https://reporadar-chi.vercel.app)
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?logo=github&style=flat-square)](https://github.com/Manidutt/reporadar)
+[![Ideated by](https://img.shields.io/badge/Ideated%20by-Manender-0071E3?style=flat-square)](https://github.com/Manidutt)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue?logo=typescript&style=flat-square)](https://www.typescriptlang.org)
 [![Vite](https://img.shields.io/badge/Vite-6.4-646CFF?logo=vite&style=flat-square)](https://vitejs.dev)
 
 **Live Web App**: [https://reporadar-chi.vercel.app](https://reporadar-chi.vercel.app)  
-**GitHub Repository**: [https://github.com/Manidutt/reporadar](https://github.com/Manidutt/reporadar)
+**GitHub Repository**: [https://github.com/Manidutt/reporadar](https://github.com/Manidutt/reporadar)  
+**Creator & Ideation**: [Manender (@Manidutt)](https://github.com/Manidutt)
 
 RepoRadar is a responsive developer discovery dashboard designed to track trending GitHub repositories, monitor breakout viral momentum, and accurately calculate genuine growth velocity without fabricating repository metrics.
 

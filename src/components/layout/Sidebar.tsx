@@ -75,7 +75,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   Daily
                 </span>
               </div>
-              <p className="text-[11px] text-[#86868B]">GitHub Discovery</p>
+              <p className="text-[11px] text-[#86868B] flex items-center gap-1 font-medium mt-0.5">
+                Ideated by <span className="text-[#1D1D1F] dark:text-[#F5F5F7] font-semibold">Manender</span>
+              </p>
             </div>
           </div>
         </div>
@@ -188,6 +190,25 @@ export const Sidebar: React.FC<SidebarProps> = ({
             )}
           </button>
           <span className="text-[11px] font-mono text-[#86868B]">v1.2</span>
+        </div>
+
+        {/* Creator Signature */}
+        <div className="pt-2.5 border-t border-black/[0.04] dark:border-white/[0.04] flex items-center justify-between text-[11px]">
+          <a
+            href="https://github.com/Manidutt"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-1.5 text-[#86868B] hover:text-[#0071E3] dark:hover:text-[#0A84FF] transition-colors"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#0071E3] group-hover:scale-125 transition-transform" />
+            <span>
+              Ideated by{' '}
+              <strong className="text-[#1D1D1F] dark:text-[#F5F5F7] group-hover:text-[#0071E3] dark:group-hover:text-[#0A84FF] font-semibold">
+                Manender
+              </strong>
+            </span>
+          </a>
+          <span className="text-[10px] text-[#86868B]/60 font-mono"> HIG</span>
         </div>
       </div>
     </aside>
